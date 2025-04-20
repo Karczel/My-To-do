@@ -39,6 +39,9 @@ export function Navbar() {
             <DropdownMenuItem className='cursor-pointer' asChild>
               <Link href='/settings'>Settings</Link>
             </DropdownMenuItem>
+            <DropdownMenuItem className='cursor-pointer' asChild>
+              <Link href='/todo-dashboard'>Todo</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -84,6 +87,14 @@ export function Navbar() {
           )}
         >
           Settings
+        </Link><Link
+          href='/todo-dashboard'
+          className={cn(
+            'text-sm font-semibold transition-colors hover:text-primary',
+            pathname !== '/todo-dashboard' && 'text-muted-foreground'
+          )}
+        >
+          To do
         </Link>
       </div>
 
