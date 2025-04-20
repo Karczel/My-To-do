@@ -147,7 +147,7 @@ export default function UpdateProfileForm() {
             />
           )}
 
-          <FormField
+          {/* <FormField
             control={form.control}
             name='role'
             render={({ field }) => (
@@ -171,7 +171,7 @@ export default function UpdateProfileForm() {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
 
           {user?.isOAuth === false && (
             <FormField

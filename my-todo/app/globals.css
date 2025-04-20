@@ -64,6 +64,42 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
+  .status-component {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .status-component:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .dropdown {
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px 0;
+  }
+  
+  .dropdown-option {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  }
+  
+  .dropdown-option:hover {
+    background-color: #007bff;  /* Blue background on hover */
+    color: white;  /* White text when hovered */
+  }
+  
+  .dropdown-option.selected {
+    background-color: #0056b3;  /* Darker blue for selected option */
+    color: white;  /* White text for selected option */
+  }
+
 }
 
 @layer base {

@@ -27,7 +27,7 @@ export function Navbar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='w-56' align='end'>
-            <DropdownMenuItem className='cursor-pointer' asChild>
+            {/* <DropdownMenuItem className='cursor-pointer' asChild>
               <Link href='/server'>Server</Link>
             </DropdownMenuItem>
             <DropdownMenuItem className='cursor-pointer' asChild>
@@ -38,7 +38,7 @@ export function Navbar() {
             </DropdownMenuItem>
             <DropdownMenuItem className='cursor-pointer' asChild>
               <Link href='/settings'>Settings</Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem className='cursor-pointer' asChild>
               <Link href='/todo-dashboard'>Todo</Link>
             </DropdownMenuItem>
@@ -46,13 +46,20 @@ export function Navbar() {
         </DropdownMenu>
       </div>
 
-      <Link href='/server' className='flex items-center mr-8'>
+      {/* <Link href='/server' className='flex items-center mr-8'>
         <ShieldCheck strokeWidth={2.5} className='mr-1 w-8 h-auto' />
         <h1 className='text-2xl font-bold'>Auth</h1>
+      </Link> */}
+
+      <Link
+          href='/todo-dashboard'
+          className={'flex items-center mr-8'}
+        >
+          <h1 className='text-2xl font-bold'>To do</h1>
       </Link>
 
       <div className='hidden md:flex items-center space-x-6'>
-        <Link
+        {/* <Link
           href='/server'
           className={cn(
             'text-sm font-semibold transition-colors hover:text-primary',
@@ -60,8 +67,8 @@ export function Navbar() {
           )}
         >
           Server
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           href='/client'
           className={cn(
             'text-sm font-semibold transition-colors hover:text-primary',
@@ -69,8 +76,8 @@ export function Navbar() {
           )}
         >
           Client
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           href='/admin'
           className={cn(
             'text-sm font-semibold transition-colors hover:text-primary',
@@ -78,8 +85,8 @@ export function Navbar() {
           )}
         >
           Admin
-        </Link>
-        <Link
+        </Link> */}
+        {/* <Link
           href='/settings'
           className={cn(
             'text-sm font-semibold transition-colors hover:text-primary',
@@ -87,7 +94,8 @@ export function Navbar() {
           )}
         >
           Settings
-        </Link><Link
+        </Link> */}
+        {/* <Link
           href='/todo-dashboard'
           className={cn(
             'text-sm font-semibold transition-colors hover:text-primary',
@@ -95,7 +103,7 @@ export function Navbar() {
           )}
         >
           To do
-        </Link>
+        </Link> */}
       </div>
 
       <div className='ml-auto flex items-center space-x-4'>

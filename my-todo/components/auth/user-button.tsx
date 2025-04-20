@@ -43,14 +43,17 @@ export function UserButton() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem className='cursor-pointer' asChild>
+          {/* <DropdownMenuItem className='cursor-pointer' asChild>
             <Link href='/server'>Server</Link>
           </DropdownMenuItem>
           <DropdownMenuItem className='cursor-pointer' asChild>
             <Link href='/client'>Client</Link>
-          </DropdownMenuItem>
+          </DropdownMenuItem> */}
           <DropdownMenuItem className='cursor-pointer' asChild>
             <Link href='/settings'>Settings</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className='cursor-pointer' asChild>
+            <Link href='/todo-dashboard'>To do</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
