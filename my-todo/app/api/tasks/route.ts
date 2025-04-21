@@ -1,6 +1,6 @@
 // app/api/tasks/route.ts
 import { auth } from '@/auth';
-import { getTasksByUser, createTask, updateTaskStatus } from '@/lib/task';
+import { getTasksByUser, createTask, updateTaskStatus } from '@/data/task';
 import { NextResponse } from 'next/server';
 
 export async function GET() {

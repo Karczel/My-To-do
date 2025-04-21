@@ -1,68 +1,53 @@
-// data/task.ts
-
 import { db } from '@/lib/db';
 
-export async function getTasksByUserId(userId: string) {
-  try {
-    return await db.task.findMany({
+export async function getTasksByUser(userId: string) {
+  return await db.task.findMany({
+    where: { userId },
+    orderBy: { createdAt: 'desc' }
+  });
+}
+
+export async function getTask(id: string) {
+  return await db.task.findUnique({ where: { id } });
+}
+
+export async function getAllTasksForUser(userId: string) {
+    return db.task.findMany({
       where: { userId },
       orderBy: { createdAt: 'desc' }
     });
-  } catch {
-    return [];
   }
-}
 
-export async function getTaskById(taskId: string) {
-  try {
-    return await db.task.findUnique({
-      where: { id: taskId }
-    });
-  } catch {
-    return null;
-  }
-}
-
-export async function createTask(
-  title: string,
-  userId: string,
-  status: string = 'TODO',
-  description?: string
-) {
-  try {
-    return await db.task.create({
+export async function createTask(userId: string, title: string) {
+    return db.task.create({
       data: {
-        title,
         userId,
-        status,
-        description
+        title,
+        status: 'todo',
       }
     });
-  } catch {
-    return null;
   }
-}
 
 export async function updateTask(
-  taskId: string,
-  updates: { title?: string; description?: string; status?: string }
-) {
-  try {
-    return await db.task.update({
-      where: { id: taskId },
-      data: updates
-    });
-  } catch {
-    return null;
+  id: string,
+  data: {
+    title?: string;
+    status?: string;
+    description?: string;
   }
+) {
+  return await db.task.update({ where: { id }, data });
 }
 
-export async function deleteTask(taskId: string) {
-  try {
-    return await db.task.delete({
-      where: { id: taskId }
+export async function updateTaskStatus(taskId: string, status: string) {
+  console.log(taskId);  
+  return db.task.update({
+      where: { id: taskId },
+      data: { status }
     });
-  } catch {
-    return null;
   }
+
+
+export async function deleteTask(id: string) {
+    return await db.task.delete({ where: { id } });
 }
