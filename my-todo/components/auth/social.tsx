@@ -45,7 +45,7 @@ export function Social() {
           <FcGoogle className='h-5 w-5 mr-2' />
           <span className='text-xs'>Sign in with Google</span>
         </Button>
-        <Button
+        {/* <Button
           size='lg'
           className='w-full px-0'
           variant='outline'
@@ -58,7 +58,7 @@ export function Social() {
           {loadingGitHub && <Loader2 className='animate-spin mr-2' size={18} />}
           <FaGithub className='h-5 w-5 mr-2' />
           <span className='text-xs'>Sign in with GitHub</span>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

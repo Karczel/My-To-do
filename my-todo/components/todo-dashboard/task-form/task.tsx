@@ -1,4 +1,4 @@
-import StatusManager from '../status/status-change'
+import StatusManager from '@/components/todo-dashboard/status/status-change'
 
 export default function TaskItem({
   task,
@@ -7,6 +7,8 @@ export default function TaskItem({
   task: { id: string; title: string; status: 'todo' | 'inprogress' | 'done' };
   onStatusChange: (id: string, newStatus: 'todo' | 'inprogress' | 'done') => void;
 }) {
+  console.log('TaskItem rendered for:', task.id, task.status);
+
   return (
     <div className="flex items-center gap-4 p-4 border-b">
       <StatusManager

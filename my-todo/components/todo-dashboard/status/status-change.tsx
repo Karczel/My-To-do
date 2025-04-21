@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import TodoStatus from './todo-status';
-import InProgressStatus from './in-progress-status';
-import DoneStatus from './done-status';
+import TodoStatus from '@/components/todo-dashboard/status/todo-status';
+import InProgressStatus from '@/components/todo-dashboard/status/in-progress-status';
+import DoneStatus from '@/components/todo-dashboard/status/done-status';
+
 
 const statusComponents = {
   todo: TodoStatus,
@@ -25,6 +26,8 @@ export default function StatusManager({
   };
 
   const handleOptionClick = (newStatus: StatusKey) => {
+    console.log('Dropdown clicked: changing to', newStatus);
+
     onStatusChange(newStatus);  // Update status when a new option is selected
     setIsDropdownVisible(false);  // Hide the dropdown after selection
   };
@@ -33,10 +36,7 @@ export default function StatusManager({
 
   return (
     <div>
-      <div onClick={handleStatusClick}>
-        {/* Render the current status component with a clickable area */}
-        <StatusComponent onClick={handleStatusClick} />
-      </div>
+      <StatusComponent onClick={handleStatusClick} />
 
       {/* If dropdown is visible, render a custom dropdown inside the status component */}
       {isDropdownVisible && (
