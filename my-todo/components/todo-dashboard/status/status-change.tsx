@@ -14,11 +14,9 @@ type StatusKey = keyof typeof statusComponents;
 export default function StatusManager({
   status,
   onStatusChange,
-  onClick
 }: {
   status: StatusKey;
   onStatusChange: (newStatus: StatusKey) => void;
-  onClick: () => void;
 }) {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
@@ -37,7 +35,7 @@ export default function StatusManager({
     <div>
       <div onClick={handleStatusClick}>
         {/* Render the current status component with a clickable area */}
-        <StatusComponent onClick={onClick} />
+        <StatusComponent onClick={handleStatusClick} />
       </div>
 
       {/* If dropdown is visible, render a custom dropdown inside the status component */}
