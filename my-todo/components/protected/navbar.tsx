@@ -35,10 +35,10 @@ export function Navbar() {
             </DropdownMenuItem>
             <DropdownMenuItem className='cursor-pointer' asChild>
               <Link href='/admin'>Admin</Link>
-            </DropdownMenuItem>
+            </DropdownMenuItem> */}
             <DropdownMenuItem className='cursor-pointer' asChild>
               <Link href='/settings'>Settings</Link>
-            </DropdownMenuItem> */}
+            </DropdownMenuItem>
             <DropdownMenuItem className='cursor-pointer' asChild>
               <Link href='/todo-dashboard'>Todo</Link>
             </DropdownMenuItem>

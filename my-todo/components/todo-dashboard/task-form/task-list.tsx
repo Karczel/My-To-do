@@ -5,7 +5,7 @@ import TaskItem from '@/components/todo-dashboard/task-form/task';
 import AddTask from '@/components/todo-dashboard/task-form/add-task';
 
 export default function TaskList() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<{ id: string; title: string; status: 'todo' | 'inprogress' | 'done' }[]>([]);
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   useEffect(() => {

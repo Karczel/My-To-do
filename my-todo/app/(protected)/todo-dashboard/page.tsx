@@ -11,10 +11,10 @@ export default async function TodoPage() {
 
   return (
     <>
-      <h2 className='text-xl md:text-3xl font-bold tracking-tight pb-4 flex items-center'>
+      {/* <h2 className='text-xl md:text-3xl font-bold tracking-tight pb-4 flex items-center'>
         <UserCog className='mr-2 w-6 md:w-8 h-auto' />
         Todo
-      </h2>
+      </h2> */}
       <Card className='w-full'>
         {/* <CardHeader>
           <h3 className='font-semibold'></h3>
