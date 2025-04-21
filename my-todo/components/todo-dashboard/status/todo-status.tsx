@@ -1,5 +1,3 @@
-'use client';
-
 import { Circle } from 'lucide-react';
 
 export default function TodoStatus({ onClick }: { onClick: () => void }) {

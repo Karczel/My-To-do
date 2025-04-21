@@ -23,17 +23,35 @@ export default function TaskList() {
   }
 }
   
-  const handleStatusChange = (id: string, newStatus: 'todo' | 'inprogress' | 'done') => {
-    setTasks((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, status: newStatus } : task))
+  async function handleStatusChange(id: string, newStatus: 'todo' | 'inprogress' | 'done') {
+    console.log(`Changing status of task ${id} to ${newStatus}`);
+    setTasks((prev) => prev.map((task) => (task.id === id ? { ...task, status: newStatus } : task))
     );
-  };
+    try {
+      const res = await fetch('/api/tasks', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id, status: newStatus }),
+      });
 
-  const handleAddTask = async (e: React.FormEvent) => {
+      if (!res.ok) {
+        throw new Error('Failed to update task status');
+      }
+
+      const updatedTask = await res.json();
+      console.log('Updated task:', updatedTask);
+    } catch (err) {
+      console.error('Error updating task:', err);
+    }
+  }
+
+  async function handleAddTask(e: React.FormEvent) {
     e.preventDefault();
-  
+
     if (!newTaskTitle.trim()) return;
-  
+
     try {
       const res = await fetch('/api/tasks', {
         method: 'POST',
@@ -42,21 +60,21 @@ export default function TaskList() {
         },
         body: JSON.stringify({ title: newTaskTitle }), // Only send title
       });
-  
+
       if (!res.ok) {
         throw new Error('Failed to add task');
       }
-  
+
       const addedTask = await res.json(); // Renamed to avoid conflict
-  
+
       console.log('Added task:', addedTask);
-  
+
       setTasks((prev) => [addedTask, ...prev]); // Add to list
       setNewTaskTitle(''); // Clear input
     } catch (err) {
       console.error('Error adding task:', err);
     }
-  };
+  }
   
 
   return (

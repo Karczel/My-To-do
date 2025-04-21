@@ -40,7 +40,8 @@ export async function updateTask(
 }
 
 export async function updateTaskStatus(taskId: string, status: string) {
-    return db.task.update({
+  console.log(taskId);  
+  return db.task.update({
       where: { id: taskId },
       data: { status }
     });
