@@ -23,7 +23,7 @@ export async function createTask(userId: string, title: string) {
       data: {
         userId,
         title,
-        status: 'TODO',
+        status: 'todo',
       }
     });
   }

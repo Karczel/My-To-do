@@ -1,7 +1,10 @@
+'use client';
+
 import { useState } from 'react';
-import TodoStatus from './todo-status';
-import InProgressStatus from './in-progress-status';
-import DoneStatus from './done-status';
+import TodoStatus from '@/components/todo-dashboard/status/todo-status';
+import InProgressStatus from '@/components/todo-dashboard/status/in-progress-status';
+import DoneStatus from '@/components/todo-dashboard/status/done-status';
+
 
 const statusComponents = {
   todo: TodoStatus,
@@ -14,11 +17,9 @@ type StatusKey = keyof typeof statusComponents;
 export default function StatusManager({
   status,
   onStatusChange,
-  onClick
 }: {
   status: StatusKey;
   onStatusChange: (newStatus: StatusKey) => void;
-  onClick: () => void;
 }) {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
@@ -37,7 +38,7 @@ export default function StatusManager({
     <div>
       <div onClick={handleStatusClick}>
         {/* Render the current status component with a clickable area */}
-        <StatusComponent onClick={onClick} />
+        <StatusComponent onClick={handleStatusClick} />
       </div>
 
       {/* If dropdown is visible, render a custom dropdown inside the status component */}

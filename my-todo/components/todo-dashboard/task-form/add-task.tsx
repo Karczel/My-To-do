@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import StatusManager from "../status/status-change";
+import StatusManager from "@/components/todo-dashboard/status/status-change";
 
 interface AddTaskProps {
   newTaskTitle: string;
@@ -12,6 +12,7 @@ export default function AddTask({
   setNewTaskTitle,
   handleAddTask
 }: AddTaskProps) {
+
   return (
     <div className="flex items-center gap-4 p-4 border-b rounded-lg bg-white hover:bg-blue-50 cursor-pointer transition-colors">
       <StatusManager

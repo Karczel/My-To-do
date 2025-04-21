@@ -1,3 +1,5 @@
+'use client';
+
 import { CheckCircle } from 'lucide-react';
 
 export default function DoneStatus({ onClick }: { onClick: () => void }) {

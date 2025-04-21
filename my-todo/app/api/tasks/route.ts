@@ -1,17 +1,22 @@
 // app/api/tasks/route.ts
 import { auth } from '@/auth';
-import { getAllTasksForUser, createTask } from '@/lib/task';
+import { getTasksByUser, createTask } from '@/lib/task';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const session = await auth();
+  try{ 
+    const session = await auth();
 
   if (!session?.user) {
     return new NextResponse(null, { status: 401 });
   }
 
-  const tasks = await getAllTasksForUser(session.user.id);
+  const tasks = await getTasksByUser(session.user.id);
   return NextResponse.json(tasks);
+} catch (error) {
+  console.error('Error fetching tasks:', error);
+  return new NextResponse('Internal Server Error', { status: 500 });
+}
 }
 
 export async function POST(req: Request) {
