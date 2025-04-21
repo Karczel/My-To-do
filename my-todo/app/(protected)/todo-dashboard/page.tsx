@@ -1,4 +1,3 @@
-import { UserCog } from 'lucide-react';
 
 import { currentUser } from '@/lib/authentication';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -11,14 +10,7 @@ export default async function TodoPage() {
 
   return (
     <>
-      {/* <h2 className='text-xl md:text-3xl font-bold tracking-tight pb-4 flex items-center'>
-        <UserCog className='mr-2 w-6 md:w-8 h-auto' />
-        Todo
-      </h2> */}
       <Card className='w-full'>
-        {/* <CardHeader>
-          <h3 className='font-semibold'></h3>
-        </CardHeader> */}
         <CardContent>
           <TaskList />
         </CardContent>

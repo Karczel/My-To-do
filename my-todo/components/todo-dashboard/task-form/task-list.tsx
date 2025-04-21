@@ -15,8 +15,6 @@ export default function TaskList() {
   async function fetchTasks() {
     try {const res = await fetch('/api/tasks');
     const data = await res.json();
-    console.log('Raw response:', data); // DEBUG
-    console.log('Response status:', res.status); // DEBUG
     setTasks(data);
   } catch (err: any) {
     console.error('Error:', err);
@@ -65,11 +63,11 @@ export default function TaskList() {
         throw new Error('Failed to add task');
       }
 
-      const addedTask = await res.json(); // Renamed to avoid conflict
+      const addedTask = await res.json();
 
       console.log('Added task:', addedTask);
 
-      setTasks((prev) => [addedTask, ...prev]); // Add to list
+      setTasks((prev) => [addedTask, ...prev]);
       setNewTaskTitle(''); // Clear input
     } catch (err) {
       console.error('Error adding task:', err);

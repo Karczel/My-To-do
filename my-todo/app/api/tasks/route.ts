@@ -1,4 +1,3 @@
-// app/api/tasks/route.ts
 import { auth } from '@/auth';
 import { getTasksByUser, createTask, updateTaskStatus } from '@/data/task';
 import { NextResponse } from 'next/server';
