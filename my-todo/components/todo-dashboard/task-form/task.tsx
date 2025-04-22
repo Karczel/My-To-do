@@ -1,21 +1,20 @@
-import StatusManager from '@/components/todo-dashboard/status/status-change'
+import DeleteTask from '@/components/todo-dashboard/task-form/delete-task';
+import StatusManager from '@/components/todo-dashboard/status/status-change';
 
 export default function TaskItem({
   task,
-  onStatusChange
+  onDelete,
 }: {
   task: { id: string; title: string; status: 'todo' | 'inprogress' | 'done' };
-  onStatusChange: (id: string, newStatus: 'todo' | 'inprogress' | 'done') => void;
+  onDelete: (id: string) => void;
 }) {
-  console.log('TaskItem rendered for:', task.id, task.status);
-
   return (
-    <div className="flex items-center gap-4 p-4 border-b">
-      <StatusManager
-        status={task.status}
-        onStatusChange={(newStatus) => onStatusChange(task.id, newStatus)}
-      />
-      <span>{task.title}</span>
+    <div className="flex items-center gap-4 p-4 border-b justify-between">
+      <div className="flex items-center gap-4">
+        <StatusManager id={task.id} status={task.status} />
+        <span>{task.title}</span>
+      </div>
+      <DeleteTask task={task} onDelete={() => onDelete(task.id)} />
     </div>
   );
 }

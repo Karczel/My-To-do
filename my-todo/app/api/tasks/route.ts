@@ -1,5 +1,5 @@
 import { auth } from '@/auth';
-import { getTasksByUser, createTask, updateTaskStatus } from '@/data/task';
+import { getTasksByUser, createTask, updateTaskStatus, deleteTask } from '@/data/task';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
@@ -55,4 +55,26 @@ export async function PUT(req: Request) {
     console.error('Error updating task status:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
+}
+
+export async function DELETE(req: Request){
+  const session = await auth();
+
+  if (!session?.user) {
+    return new NextResponse(null, { status: 401 });
+  }
+
+  const { id } = await req.json();
+  if (!id){
+    return new NextResponse('Invalid task id', { status: 400 });
+  }
+
+  try {
+    const deleteTheTask = await deleteTask(id);
+    return NextResponse.json(deleteTheTask);
+  } catch (error) {
+    console.error('Error updating task status:', error);
+    return new NextResponse('Internal Server Error', { status: 500 });
+  }
+
 }

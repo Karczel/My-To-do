@@ -3,7 +3,7 @@ import TodoStatus from '@/components/todo-dashboard/status/todo-status';
 import InProgressStatus from '@/components/todo-dashboard/status/in-progress-status';
 import DoneStatus from '@/components/todo-dashboard/status/done-status';
 
-
+// Define components associated with each status
 const statusComponents = {
   todo: TodoStatus,
   inprogress: InProgressStatus,
@@ -12,53 +12,55 @@ const statusComponents = {
 
 type StatusKey = keyof typeof statusComponents;
 
-export default function StatusManager({
-  status,
-  onStatusChange,
-}: {
+interface StatusManagerProps {
+  id: string;
   status: StatusKey;
-  onStatusChange: (newStatus: StatusKey) => void;
-}) {
+}
+
+export default function StatusManager({ id, status: initialStatus }: StatusManagerProps) {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+  const [status, setStatus] = useState<StatusKey>(initialStatus);
 
   const handleStatusClick = () => {
-    setIsDropdownVisible((prev) => !prev); // Toggle the dropdown visibility when status is clicked
+    setIsDropdownVisible((prev) => !prev);
   };
 
-  const handleOptionClick = (newStatus: StatusKey) => {
-    console.log('Dropdown clicked: changing to', newStatus);
+  const handleOptionClick = async (newStatus: StatusKey) => {
+    if (newStatus === status) return;
 
-    onStatusChange(newStatus);  // Update status when a new option is selected
-    setIsDropdownVisible(false);  // Hide the dropdown after selection
+    try {
+      const res = await fetch('/api/tasks', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status: newStatus }),
+      });
+
+      if (!res.ok) throw new Error('Failed to update task status');
+
+      setStatus(newStatus);
+    } catch (err) {
+      console.error('Status update error:', err);
+    }
+
+    setIsDropdownVisible(false);
   };
 
-  const StatusComponent = statusComponents[status]; // Get the correct component
+  const StatusComponent = statusComponents[status];
 
   return (
     <div>
       <StatusComponent onClick={handleStatusClick} />
-
-      {/* If dropdown is visible, render a custom dropdown inside the status component */}
       {isDropdownVisible && (
         <div className="dropdown text-black">
-          <div
-            className={`dropdown-option ${status === 'todo' ? 'selected' : ''}`}
-            onClick={() => handleOptionClick('todo')}
-          >
-            Todo
-          </div>
-          <div
-            className={`dropdown-option ${status === 'inprogress' ? 'selected' : ''}`}
-            onClick={() => handleOptionClick('inprogress')}
-          >
-            In Progress
-          </div>
-          <div
-            className={`dropdown-option ${status === 'done' ? 'selected' : ''}`}
-            onClick={() => handleOptionClick('done')}
-          >
-            Done
-          </div>
+          {(['todo', 'inprogress', 'done'] as const).map((s) => (
+            <div
+              key={s}
+              className={`dropdown-option ${status === s ? 'selected' : ''}`}
+              onClick={() => handleOptionClick(s)}
+            >
+              {s.charAt(0).toUpperCase() + s.slice(1)}
+            </div>
+          ))}
         </div>
       )}
     </div>

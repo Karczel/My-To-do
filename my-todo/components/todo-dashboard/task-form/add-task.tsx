@@ -4,20 +4,45 @@ import StatusManager from "@/components/todo-dashboard/status/status-change";
 interface AddTaskProps {
   newTaskTitle: string;
   setNewTaskTitle: (title: string) => void;
-  handleAddTask: (e: React.FormEvent) => void;
+  onTaskAdded: (newTask: { id: string; title: string; status: 'todo' | 'inprogress' | 'done' }) => void;
 }
 
 export default function AddTask({
   newTaskTitle,
   setNewTaskTitle,
-  handleAddTask
+  onTaskAdded,
 }: AddTaskProps) {
 
+  async function handleAddTask(e: React.FormEvent) {
+    e.preventDefault();
+
+    if (!newTaskTitle.trim()) return;
+
+    try {
+      const res = await fetch('/api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: newTaskTitle }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to add task');
+      }
+
+      const addedTask = await res.json();
+
+      onTaskAdded(addedTask); // ✅ Pass new task back to parent
+      setNewTaskTitle('');
+    } catch (err) {
+      console.error('Error adding task:', err);
+    }
+  }
+
   return (
-    <div className="flex items-center gap-4 p-4 border-b rounded-lg bg-white hover:bg-blue-50 cursor-pointer transition-colors">
-      <StatusManager
-        status="todo"
-        onStatusChange={() => {}} // Placeholder
+    <form onSubmit={handleAddTask} className="flex items-center gap-4 p-4 border-b rounded-lg bg-white hover:bg-blue-50 transition-colors">
+      <StatusManager id="temp" status="todo"
       />
       <input
         type="text"
@@ -32,11 +57,11 @@ export default function AddTask({
         }}
       />
       <button
-        onClick={handleAddTask}
+        type="submit"
         className="bg-black text-white w-8 h-8 rounded-full hover:bg-neutral-800 flex items-center justify-center"
       >
         <Plus className="h-5 w-5" />
       </button>
-    </div>
+    </form>
   );
 }

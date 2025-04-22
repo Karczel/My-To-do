@@ -13,67 +13,18 @@ export default function TaskList() {
   }, []);
 
   async function fetchTasks() {
-    try {const res = await fetch('/api/tasks');
-    const data = await res.json();
-    setTasks(data);
-  } catch (err: any) {
-    console.error('Error:', err);
-  }
-}
-  
-  async function handleStatusChange(id: string, newStatus: 'todo' | 'inprogress' | 'done') {
-    console.log(`Changing status of task ${id} to ${newStatus}`);
-    setTasks((prev) => prev.map((task) => (task.id === id ? { ...task, status: newStatus } : task))
-    );
     try {
-      const res = await fetch('/api/tasks', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id, status: newStatus }),
-      });
-
-      if (!res.ok) {
-        throw new Error('Failed to update task status');
-      }
-
-      const updatedTask = await res.json();
-      console.log('Updated task:', updatedTask);
-    } catch (err) {
-      console.error('Error updating task:', err);
+      const res = await fetch('/api/tasks');
+      const data = await res.json();
+      setTasks(data);
+    } catch (err: any) {
+      console.error('Error:', err);
     }
   }
 
-  async function handleAddTask(e: React.FormEvent) {
-    e.preventDefault();
-
-    if (!newTaskTitle.trim()) return;
-
-    try {
-      const res = await fetch('/api/tasks', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title: newTaskTitle }), // Only send title
-      });
-
-      if (!res.ok) {
-        throw new Error('Failed to add task');
-      }
-
-      const addedTask = await res.json();
-
-      console.log('Added task:', addedTask);
-
-      setTasks((prev) => [addedTask, ...prev]);
-      setNewTaskTitle(''); // Clear input
-    } catch (err) {
-      console.error('Error adding task:', err);
-    }
-  }
-  
+  const handleDelete = (taskId: string) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId)); // Remove the task from the state
+  };
 
   return (
     <div className="space-y-4">
@@ -81,20 +32,20 @@ export default function TaskList() {
       <AddTask
         newTaskTitle={newTaskTitle}
         setNewTaskTitle={setNewTaskTitle}
-        handleAddTask={handleAddTask}
+        onTaskAdded={(newTask) => setTasks((prev) => [newTask, ...prev])}
       />
 
-    {/* Display Tasks */}
-    {tasks.map((task) => (
-      <TaskItem
-        key={task.id}
-        task={{
-          ...task,
-          status: task.status as 'todo' | 'inprogress' | 'done',
-        }}
-        onStatusChange={handleStatusChange}
-      />
-    ))}
-  </div>
-);
+      {/* Display Tasks */}
+      {tasks.map((task) => (
+        <TaskItem
+          key={task.id}
+          task={{
+            ...task,
+            status: task.status as 'todo' | 'inprogress' | 'done',
+          }}
+          onDelete={handleDelete}
+        />
+      ))}
+    </div>
+  );
 }
